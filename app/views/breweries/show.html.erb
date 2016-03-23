@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<!-- <p>
+  <strong>Latitude:</strong>
+  <%= @brewery.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @brewery.longitude %>
+</p> -->
+
+<p>
+  <strong>Address:</strong>
+  <%= @brewery.address %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @brewery.name %>
+</p>
+
+<p>
+  <strong>Contact:</strong>
+  <%= @brewery.contact %>
+</p>
+
+<div style='width: 800px;'>
+  <div id="map" style='width: 800px; height: 400px;'></div>
+</div>
+
+<script type="text/javascript">
+  handler = Gmaps.build('Google');
+  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+    markers = handler.addMarkers(<%=raw @hash.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+    handler.getMap().setZoom(12);
+});
+</script>
+
+<%= link_to image_tag(@brewery.image.url(:large)), @brewery.image.url %>
+<%= link_to 'Edit', edit_brewery_path(@brewery) %> |
+<%= link_to 'Back', breweries_path %>
