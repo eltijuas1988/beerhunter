@@ -1,16 +1,22 @@
 class BreweriesController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_brewery, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:home, :index, :show]
 
   # GET /breweries
   # GET /breweries.json
+  def home
+  end
+
   def index
+    # @breweries = Brewery.where(user_id: current_user.id)
     @breweries = Brewery.all
+    # session[:id] = params[:id]
   end
 
   # GET /breweries/1
   # GET /breweries/1.json
   def show
+    # @brewery = Brewery.find(session[:id])
     @brewery = Brewery.find(params[:id])
     @hash = Gmaps4rails.build_markers(@brewery) do |brewery, marker|
       marker.lat brewery.latitude
@@ -73,6 +79,7 @@ class BreweriesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_brewery
+      # @brewery = Brewery.find(session[:id])
       @brewery = Brewery.find(params[:id])
     end
 
