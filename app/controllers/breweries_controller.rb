@@ -8,15 +8,16 @@ class BreweriesController < ApplicationController
   end
 
   def index
-    # @breweries = Brewery.where(user_id: current_user.id)
+    @user = current_user
     @breweries = Brewery.all
-    # session[:id] = params[:id]
+  end
+
+  def profile
   end
 
   # GET /breweries/1
   # GET /breweries/1.json
   def show
-    # @brewery = Brewery.find(session[:id])
     @brewery = Brewery.find(params[:id])
     @hash = Gmaps4rails.build_markers(@brewery) do |brewery, marker|
       marker.lat brewery.latitude
@@ -79,7 +80,6 @@ class BreweriesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_brewery
-      # @brewery = Brewery.find(session[:id])
       @brewery = Brewery.find(params[:id])
     end
 

@@ -24,7 +24,7 @@
         <td><%= brewery.contact %></td>
         <td><%= link_to 'Show', brewery %></td>
         <% if user_signed_in? %>
-          <% if currrent_user.id == brewery.user_id %>
+          <% if @user.id == brewery.user_id %>
             <td><%= link_to 'Edit', edit_brewery_path(brewery) %></td>
             <td><%= link_to 'Destroy', brewery, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <% end %>
@@ -35,5 +35,6 @@
 </table>
 
 <br>
-
-<%= link_to 'New Brewery', new_brewery_path %>
+<% if user_signed_in? %>
+  <%= link_to 'New Brewery', new_brewery_path %>
+<% end %>
